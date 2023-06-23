@@ -1,0 +1,47 @@
+<p-toast position="top-center"></p-toast>
+
+<form [formGroup]="postForm" (ngSubmit)="submit()" enctype='multipart/form-data'>
+
+
+  <div>
+    <input type="file" multiple="false" (change)="onFileChange($event)" />
+  </div>
+
+  <div>
+    <input type="text" formControlName="title" />
+    <span
+      *ngIf="postForm.get('title')?.hasError('required') && (postForm.get('title')?.touched || postForm.get('title')?.dirty)">
+      Title boş geçilemez
+    </span>
+  </div>
+
+  <div>
+    <textarea formControlName="body"></textarea>
+    <span>{{charCount}} kadar karakter giriniz</span>
+    <span *ngIf="postForm.get('body')?.hasError('required')">
+      Body boş geçilemez
+    </span>
+
+    <span *ngIf="postForm.get('body')?.hasError('maxlength')">
+      20 karakterden fazla yazılamaz
+    </span>
+  </div>
+
+
+  <!-- Nested Form örneği -->
+
+  <div formGroupName="address">
+    <h2>Address</h2>
+
+    <label for="street">Street: </label>
+    <input id="street" type="text" formControlName="street">
+
+    <label for="city">City: </label>
+    <input id="city" type="text" formControlName="city">
+
+  </div>
+
+  <div>
+    <button [disabled]="postForm.invalid" type="submit"> Kaydet </button>
+  </div>
+</form>

@@ -1,0 +1,7 @@
+<hr>
+<h1>Admin Pages</h1>
+
+UserInfo :
+<div *ngIf="(uState.getUserInfo() | async).name">
+  {{(uState.getUserInfo() | async).name}}
+</div>
